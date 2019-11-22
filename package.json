@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd packages/a && npm i && npm run build && cd ../test && npm i && npm run start"
+    "start": "cd packages/a && npm run build && cd ../test && npm i && npm run start"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "mobx": "^5.15.0",
+    "mobx-state-tree": "^3.15.0"
+  },
   "devDependencies": {
     "ts-node": "^8.4.1",
     "typescript": "^3.0.3"

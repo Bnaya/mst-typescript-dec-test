@@ -9,13 +9,15 @@
     "@types/react-dom": "16.0.8",
     "@types/react-router-dom": "^5.1.0",
     "a": "file:../a",
-    "mobx": "^5.14.0",
     "mobx-react-lite": "^1.4.1",
-    "mobx-state-tree": "^3.14.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "2.1.8",
     "typescript": "^3.5.1"
+  },
+  "peerDependencies": {
+    "mobx": "^5.13.1",
+    "mobx-state-tree": "^3.14.1"
   },
   "devDependencies": {},
   "scripts": {
