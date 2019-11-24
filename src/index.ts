@@ -10,7 +10,6 @@ const ModelAInferred = t.model({
   foo: t.string
 });
 
-
 type ModelAFactoryType = typeof ModelAInferred;
 interface ModelAFactoryInterface extends ModelAFactoryType {}
 export const ModelA: ModelAFactoryInterface = ModelAInferred;
