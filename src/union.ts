@@ -1,13 +1,10 @@
 import {
   types as t,
-  IModelType,
   Instance,
   _NotCustomized,
-  ISimpleType,
-  ModelPropertiesDeclaration,
   IType
 } from "mobx-state-tree";
-import { ExtractProps, IAnyModelType, ExtractOthers, ITypeUnion, ExtractCSTWithoutSTN } from "mobx-state-tree/dist/internal";
+import { ExtractProps, IAnyModelType, ExtractOthers, ExtractCSTWithoutSTN } from "mobx-state-tree/dist/internal";
 
 type ForDirectExtend<T> = T;
 
@@ -33,16 +30,14 @@ interface ModelCFactoryInterface extends ForDirectExtend<typeof _ModelC> {}
 export const ModelC: ModelCFactoryInterface = _ModelC;
 
 const _ModelD = lazyInferenceTypeUnion(ModelA, ModelB, ModelC);
-
 export const ModelD = _ModelD;
+export const ModelDvariadicUnion = lazyInferenceTypeUnionVariadic(ModelA, ModelB, ModelC);
 
-type CT = typeof ModelD.CreationType
-
-type IT = Instance<typeof ModelD>;
+type IT = Instance<typeof ModelDvariadicUnion>;
 declare const bla: IT;
 
 if ("foo" in bla) {
-  bla.foo
+  bla.foo.anchor
 }
 
 function lazyInferenceTypeUnion<
@@ -53,6 +48,21 @@ function lazyInferenceTypeUnion<
   return t.union(m1, m2, m3);
 }
 
+function lazyInferenceTypeUnionVariadic<
+  ARGS extends Array<IAnyModelType>
+>(...args: ARGS): LazyInferenceModelType<ARGS[number]>  {
+  return t.union(...args);
+}
+
+type FilterOnly<T, N> = T extends N ? T : never;
+
+function lazyInferenceTypeUnionVariadic3<
+  ARGS extends Array<IAnyModelType>
+>(...args: ARGS): ({ [P in FilterOnly<keyof ARGS, number>]: LazyInferenceModelType<ARGS[P]> } )[number] {
+  return t.union(...args);
+}
+
 type LazyInferenceModelType<T extends IAnyModelType> = IType<ExtractProps<T>, ExtractOthers<T>, ExtractCSTWithoutSTN<T>>;
 
-// ExtractProps<M1> | ExtractProps<M2>
+const result_lazyInferenceTypeUnionVariadic = lazyInferenceTypeUnionVariadic(ModelA, ModelB, ModelC);
+const result_lazyInferenceTypeUnionVariadic3 = lazyInferenceTypeUnionVariadic3(ModelA, ModelB, ModelC);
