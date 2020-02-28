@@ -30,8 +30,21 @@ interface ModelCFactoryInterface extends ForDirectExtend<typeof _ModelC> {}
 export const ModelC: ModelCFactoryInterface = _ModelC;
 
 const _ModelD = lazyInferenceTypeUnion(ModelA, ModelB, ModelC);
+
+/**
+ * Compare this d.ts
+ */
 export const ModelD = _ModelD;
+
+/**
+ * Compare this d.ts
+ */
 export const ModelDvariadicUnion = lazyInferenceTypeUnionVariadic(ModelA, ModelB, ModelC);
+
+/**
+ * Compare this d.ts
+ */
+export const ModelDNotLazy = t.union(ModelA, ModelB, ModelC);
 
 type IT = Instance<typeof ModelDvariadicUnion>;
 declare const bla: IT;
