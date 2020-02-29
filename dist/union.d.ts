@@ -1,24 +1,25 @@
-import { _NotCustomized, IType } from "mobx-state-tree";
-import { ExtractProps, IAnyModelType, ExtractOthers, ExtractCSTWithoutSTN } from "mobx-state-tree/dist/internal";
+import { Instance, _NotCustomized, IType } from "mobx-state-tree";
+import { ExtractProps, IAnyModelType, ExtractOthers, ExtractCSTWithoutSTN, IModelType } from "mobx-state-tree/dist/internal";
 declare type ForDirectExtend<T> = T;
-declare const _ModelA: import("mobx-state-tree").IModelType<{
+declare const _ModelA: IModelType<{
     foo: import("mobx-state-tree").ISimpleType<string>;
 }, {}, _NotCustomized, _NotCustomized>;
 interface ModelAFactoryInterface extends ForDirectExtend<typeof _ModelA> {
 }
 export declare const ModelA: ModelAFactoryInterface;
-declare const _ModelB: import("mobx-state-tree").IModelType<{
+declare const _ModelB: IModelType<{
     bar: import("mobx-state-tree").ISimpleType<number>;
 }, {}, _NotCustomized, _NotCustomized>;
 interface ModelBFactoryInterface extends ForDirectExtend<typeof _ModelB> {
 }
 export declare const ModelB: ModelBFactoryInterface;
-export declare const _ModelC: import("mobx-state-tree").IModelType<{
+export declare const _ModelC: IModelType<{
     a: ModelAFactoryInterface;
 }, {}, _NotCustomized, _NotCustomized>;
 interface ModelCFactoryInterface extends ForDirectExtend<typeof _ModelC> {
 }
 export declare const ModelC: ModelCFactoryInterface;
+export declare const ModelE: LazyComposeModelsTypes<ModelAFactoryInterface, ModelBFactoryInterface, ModelCFactoryInterface>;
 /**
  * Compare this d.ts
  */
@@ -49,5 +50,7 @@ export declare const ModelDNotLazy: import("mobx-state-tree").ITypeUnion<import(
 }, {}> | import("mobx-state-tree").ModelInstanceType<{
     a: ModelAFactoryInterface;
 }, {}>>;
+export declare const lazyComposedVar: Instance<typeof ModelE>;
 declare type LazyInferenceModelType<T extends IAnyModelType> = IType<ExtractProps<T>, ExtractOthers<T>, ExtractCSTWithoutSTN<T>>;
+declare type LazyComposeModelsTypes<T1 extends IAnyModelType, T2 extends IAnyModelType, T3 extends IAnyModelType> = IModelType<ExtractProps<T1> & ExtractProps<T2> & ExtractProps<T3>, ExtractOthers<T1> & ExtractOthers<T2> & ExtractOthers<T3>, ExtractCSTWithoutSTN<T1> & ExtractCSTWithoutSTN<T2> & ExtractCSTWithoutSTN<T3>>;
 export {};
