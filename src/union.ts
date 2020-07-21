@@ -72,6 +72,19 @@ function lazyInferenceTypeCompose<
   return t.compose(m1, m2, m3);
 }
 
+function lazyInferenceTypeComposeVariadic<
+ARGS extends Array<IAnyModelType>
+  >(...args: ARGS): IModelType<
+  ExtractProps<ARGS[any]>,
+  ExtractOthers<ARGS[any]>,
+  ExtractCSTWithoutSTN<ARGS[any]>
+> {
+    // @ts-ignore
+  return t.compose(...args);
+}
+
+const LALALALA = lazyInferenceTypeComposeVariadic(ModelA, ModelB, ModelC);
+
 export declare const lazyComposedVar: Instance<typeof ModelE>;
 
 
@@ -92,6 +105,16 @@ function lazyInferenceTypeUnionVariadic3<
 type LazyInferenceModelType<T extends IAnyModelType> = IType<ExtractProps<T>, ExtractOthers<T>, ExtractCSTWithoutSTN<T>>;
 
 type LazyComposeModelsTypes<
+  T1 extends IAnyModelType,
+  T2 extends IAnyModelType,
+  T3 extends IAnyModelType
+> = IModelType<
+  ExtractProps<T1> & ExtractProps<T2> & ExtractProps<T3>,
+  ExtractOthers<T1> & ExtractOthers<T2> & ExtractOthers<T3>,
+  ExtractCSTWithoutSTN<T1> & ExtractCSTWithoutSTN<T2> & ExtractCSTWithoutSTN<T3>
+>;
+
+type LazyComposeModelsTypesVariadic<
   T1 extends IAnyModelType,
   T2 extends IAnyModelType,
   T3 extends IAnyModelType
