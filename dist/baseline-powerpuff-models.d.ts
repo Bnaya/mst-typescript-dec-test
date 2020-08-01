@@ -1,6 +1,10 @@
 /**
  * Importing none-directly referenced types drastically reduce emitted d.ts size
- *
+ * For example, without it, every reference to `ISimpleType` would be:
+ * ```
+ *  import("mobx-state-tree/dist/internal").ISimpleType
+ * ```
+ *  And thus for every other symbol
  */
 import type { ISimpleType, ModelSnapshotType, ModelInstanceType, _NotCustomized, ModelCreationType, ITypeUnion, IArrayType, IModelType } from "mobx-state-tree";
 export declare const BasePowerpuff: IModelType<{

@@ -16,13 +16,4 @@ interface ModelBFactoryInterface extends DirectExtendHelper<typeof ModelBInferre
 export declare const ModelB: ModelBFactoryInterface;
 export interface IModelBStore extends Instance<ModelBFactoryInterface> {
 }
-declare const ModelCInferred: IModelType<{
-    b: ModelBFactoryInterface;
-}, {}, _NotCustomized, _NotCustomized>;
-declare type ModelCFactoryType = typeof ModelCInferred;
-interface ModelCFactoryInterface extends ModelCFactoryType {
-}
-export declare const ModelC: ModelCFactoryInterface;
-export interface IModelCStore extends Instance<ModelCFactoryInterface> {
-}
 export {};

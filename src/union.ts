@@ -2,33 +2,32 @@ import {
   types as t,
   Instance,
   _NotCustomized,
-  IType
+  IType,
+  ISimpleType
 } from "mobx-state-tree";
 import { ExtractProps, IAnyModelType, ExtractOthers, ExtractCSTWithoutSTN, IModelType } from "mobx-state-tree/dist/internal";
 
-t.compose
+type DirectExtendHelper<T> = T;
 
-type ForDirectExtend<T> = T;
-
-const _ModelA = t.model({
+const ModelAInferred = t.model({
   foo: t.string
 });
 
-interface ModelAFactoryInterface extends ForDirectExtend<typeof _ModelA> { }
-export const ModelA: ModelAFactoryInterface = _ModelA;
+interface ModelAFactoryInterface extends DirectExtendHelper<typeof ModelAInferred> { }
+export const ModelA: ModelAFactoryInterface = ModelAInferred;
 
-const _ModelB = t.model({
+const ModelBInferred = t.model({
   bar: t.number
 });
 
-interface ModelBFactoryInterface extends ForDirectExtend<typeof _ModelB> { }
-export const ModelB: ModelBFactoryInterface = _ModelB;
+interface ModelBFactoryInterface extends DirectExtendHelper<typeof ModelBInferred> { }
+export const ModelB: ModelBFactoryInterface = ModelBInferred;
 
 export const _ModelC = t.model({
   a: ModelA
 });
 
-interface ModelCFactoryInterface extends ForDirectExtend<typeof _ModelC> { }
+interface ModelCFactoryInterface extends DirectExtendHelper<typeof _ModelC> { }
 export const ModelC: ModelCFactoryInterface = _ModelC;
 
 const _ModelD = lazyInferenceTypeUnion(ModelA, ModelB, ModelC);

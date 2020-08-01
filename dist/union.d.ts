@@ -1,22 +1,22 @@
-import { Instance, _NotCustomized, IType } from "mobx-state-tree";
+import { Instance, _NotCustomized, IType, ISimpleType } from "mobx-state-tree";
 import { ExtractProps, IAnyModelType, ExtractOthers, ExtractCSTWithoutSTN, IModelType } from "mobx-state-tree/dist/internal";
-declare type ForDirectExtend<T> = T;
-declare const _ModelA: IModelType<{
-    foo: import("mobx-state-tree").ISimpleType<string>;
+declare type DirectExtendHelper<T> = T;
+declare const ModelAInferred: IModelType<{
+    foo: ISimpleType<string>;
 }, {}, _NotCustomized, _NotCustomized>;
-interface ModelAFactoryInterface extends ForDirectExtend<typeof _ModelA> {
+interface ModelAFactoryInterface extends DirectExtendHelper<typeof ModelAInferred> {
 }
 export declare const ModelA: ModelAFactoryInterface;
-declare const _ModelB: IModelType<{
-    bar: import("mobx-state-tree").ISimpleType<number>;
+declare const ModelBInferred: IModelType<{
+    bar: ISimpleType<number>;
 }, {}, _NotCustomized, _NotCustomized>;
-interface ModelBFactoryInterface extends ForDirectExtend<typeof _ModelB> {
+interface ModelBFactoryInterface extends DirectExtendHelper<typeof ModelBInferred> {
 }
 export declare const ModelB: ModelBFactoryInterface;
 export declare const _ModelC: IModelType<{
     a: ModelAFactoryInterface;
 }, {}, _NotCustomized, _NotCustomized>;
-interface ModelCFactoryInterface extends ForDirectExtend<typeof _ModelC> {
+interface ModelCFactoryInterface extends DirectExtendHelper<typeof _ModelC> {
 }
 export declare const ModelC: ModelCFactoryInterface;
 export declare const ModelE: LazyComposeModelsTypes<ModelAFactoryInterface, ModelBFactoryInterface, ModelCFactoryInterface>;
@@ -32,21 +32,21 @@ export declare const ModelDvariadicUnion: LazyInferenceModelType<ModelAFactoryIn
  * Compare this d.ts
  */
 export declare const ModelDNotLazy: import("mobx-state-tree").ITypeUnion<import("mobx-state-tree").ModelCreationType<import("mobx-state-tree/dist/internal").ExtractCFromProps<{
-    foo: import("mobx-state-tree").ISimpleType<string>;
+    foo: ISimpleType<string>;
 }>> | import("mobx-state-tree").ModelCreationType<import("mobx-state-tree/dist/internal").ExtractCFromProps<{
-    bar: import("mobx-state-tree").ISimpleType<number>;
+    bar: ISimpleType<number>;
 }>> | import("mobx-state-tree").ModelCreationType<import("mobx-state-tree/dist/internal").ExtractCFromProps<{
     a: ModelAFactoryInterface;
 }>>, import("mobx-state-tree").ModelSnapshotType<{
-    foo: import("mobx-state-tree").ISimpleType<string>;
+    foo: ISimpleType<string>;
 }> | import("mobx-state-tree").ModelSnapshotType<{
-    bar: import("mobx-state-tree").ISimpleType<number>;
+    bar: ISimpleType<number>;
 }> | import("mobx-state-tree").ModelSnapshotType<{
     a: ModelAFactoryInterface;
 }>, import("mobx-state-tree").ModelInstanceType<{
-    foo: import("mobx-state-tree").ISimpleType<string>;
+    foo: ISimpleType<string>;
 }, {}> | import("mobx-state-tree").ModelInstanceType<{
-    bar: import("mobx-state-tree").ISimpleType<number>;
+    bar: ISimpleType<number>;
 }, {}> | import("mobx-state-tree").ModelInstanceType<{
     a: ModelAFactoryInterface;
 }, {}>>;

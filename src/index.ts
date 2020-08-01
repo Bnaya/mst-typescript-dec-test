@@ -10,8 +10,9 @@ const ModelAInferred = t.model({
   foo: t.string
 });
 
-type ModelAFactoryType = typeof ModelAInferred;
-interface ModelAFactoryInterface extends ModelAFactoryType {}
+type DirectExtendHelper<T> = T;
+
+interface ModelAFactoryInterface extends DirectExtendHelper<typeof ModelAInferred> {}
 export const ModelA: ModelAFactoryInterface = ModelAInferred;
 export interface IModelAStore extends Instance<ModelAFactoryInterface> {}
 
@@ -19,8 +20,7 @@ const ModelBInferred = t.model({
   a: ModelA
 });
 
-type ModelBFactoryType = typeof ModelBInferred;
-interface ModelBFactoryInterface extends ModelBFactoryType {}
+interface ModelBFactoryInterface extends DirectExtendHelper<typeof ModelBInferred> {}
 export const ModelB: ModelBFactoryInterface = ModelBInferred;
 export interface IModelBStore extends Instance<ModelBFactoryInterface> {}
 
